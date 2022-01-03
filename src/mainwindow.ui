@@ -36,7 +36,7 @@
           <item>
            <widget class="QLabel" name="browsePfxFileLabel">
             <property name="text">
-             <string>PFX File</string>
+             <string>PFX/P12 File</string>
             </property>
            </widget>
           </item>
@@ -51,7 +51,7 @@
                <bool>true</bool>
               </property>
               <property name="placeholderText">
-               <string>Please select a .pfx file to use for signing</string>
+               <string>Please select the file to use for signing</string>
               </property>
               <property name="clearButtonEnabled">
                <bool>true</bool>
@@ -80,7 +80,7 @@
           <item>
            <widget class="QLabel" name="pfxFilePasswordLabel">
             <property name="text">
-             <string>PFX File's password</string>
+             <string>PFX/P12 File's password</string>
             </property>
            </widget>
           </item>
@@ -92,7 +92,7 @@
                <enum>QLineEdit::Password</enum>
               </property>
               <property name="placeholderText">
-               <string>If above .pfx file is protected, enter the password here</string>
+               <string>If above file is protected, enter the password here</string>
               </property>
               <property name="clearButtonEnabled">
                <bool>true</bool>
@@ -225,7 +225,7 @@
      <x>0</x>
      <y>0</y>
      <width>420</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>
