@@ -54,7 +54,7 @@
                <string>Please select the file to use for signing</string>
               </property>
               <property name="clearButtonEnabled">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -80,7 +80,7 @@
           <item>
            <widget class="QLabel" name="pfxFilePasswordLabel">
             <property name="text">
-             <string>PFX/P12 File's password</string>
+             <string>Password</string>
             </property>
            </widget>
           </item>
@@ -124,7 +124,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="listWidget">
+         <widget class="QListWidget" name="filesToSignListWidget">
           <property name="dragEnabled">
            <bool>true</bool>
           </property>
@@ -140,45 +140,31 @@
          </widget>
         </item>
         <item>
-         <widget class="Line" name="hr01">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="signAndClearButtonsHorizontalLayout">
           <property name="spacing">
            <number>8</number>
           </property>
           <property name="topMargin">
-           <number>4</number>
+           <number>8</number>
           </property>
           <property name="bottomMargin">
-           <number>4</number>
+           <number>8</number>
           </property>
           <item>
            <widget class="QPushButton" name="signPushButton">
             <property name="text">
-             <string>Sign</string>
+             <string>Sign all</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="clearFilesToSignListPushButton">
             <property name="text">
-             <string>Clear</string>
+             <string>Clear list</string>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="Line" name="hr02">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
         </item>
         <item>
          <widget class="QLabel" name="signOutputLabel">
@@ -209,6 +195,67 @@
        <attribute name="title">
         <string>Verify</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="filesToVerifyVerticalLayout">
+          <item>
+           <widget class="QLabel" name="verifyListLabel">
+            <property name="text">
+             <string>Files to verify (*.exe, *.dll, *.cab, *.cat, *.appx)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="filesToVerifyListWidget"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="filesToVerifyListButtonsHorizontalLayout">
+          <item>
+           <widget class="QPushButton" name="verifyFilesPushButton">
+            <property name="text">
+             <string>Verify all</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clearFilesToVerifyListPushButton">
+            <property name="text">
+             <string>Clear list</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="filesVerificationOutputVerticalLayout">
+          <item>
+           <widget class="QLabel" name="filesVerificationOutput">
+            <property name="text">
+             <string>Output</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="filesVerificationOutputTextEdit">
+            <property name="tabChangesFocus">
+             <bool>true</bool>
+            </property>
+            <property name="undoRedoEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="aboutTab">
        <attribute name="title">
