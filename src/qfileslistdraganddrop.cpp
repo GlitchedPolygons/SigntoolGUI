@@ -9,18 +9,19 @@
 
 QFilesListDragAndDrop::QFilesListDragAndDrop(QWidget* parent) : QListWidget { parent }
 {
-    // nop
+    setSelectionMode(QAbstractItemView::SingleSelection);
+    setMouseTracking(true);
+    setDragEnabled(true);
+    setDragDropMode(QAbstractItemView::DragDrop);
+    setDropIndicatorShown(true);
+    setAcceptDrops(true);
+    viewport()->setAcceptDrops(true);
+
 }
 
 void QFilesListDragAndDrop::dragEnterEvent(QDragEnterEvent* e)
 {
-    if (!e->mimeData()->hasUrls())
-    {
-        e->setAccepted(false);
-        return;
-    }
-
-    e->setAccepted(true);
+    e->setAccepted(e->mimeData()->hasUrls());
 }
 
 void QFilesListDragAndDrop::dropEvent(QDropEvent* e)
