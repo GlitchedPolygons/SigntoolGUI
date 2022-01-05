@@ -326,14 +326,10 @@
          </widget>
         </item>
         <item>
-         <widget class="Line" name="lineCheckboxes">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QVBoxLayout" name="verticalLayoutHashAlgo">
+          <property name="topMargin">
+           <number>4</number>
+          </property>
           <item>
            <widget class="QLabel" name="labelHashAlgo">
             <property name="text">
@@ -379,19 +375,28 @@
               </attribute>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacerHashAlgo">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="Line" name="lineHashAlgo">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QVBoxLayout" name="verticalLayoutTimestampHashAlgo">
+          <property name="topMargin">
+           <number>4</number>
+          </property>
           <item>
            <widget class="QLabel" name="labelTimestampHashAlgo">
             <property name="toolTip">
@@ -440,19 +445,28 @@
               </attribute>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacerTimestampHashAlgo">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="Line" name="lineTimestampHashAlgo">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QVBoxLayout" name="verticalLayoutTimestampServer">
+          <property name="topMargin">
+           <number>4</number>
+          </property>
           <item>
            <widget class="QLabel" name="labelTimestampServer">
             <property name="text">
@@ -476,41 +490,48 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="labelCommonlyUsedTimestampServers">
-          <property name="text">
-           <string>Commonly used timestamp servers</string>
+         <layout class="QVBoxLayout" name="verticalLayoutTimestampServerUrlShortcutButtons">
+          <property name="topMargin">
+           <number>4</number>
           </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayoutTimestampServerUrlShortcutButtons">
           <item>
-           <widget class="QPushButton" name="pushButtonPasteDigiCertTimestampServer">
+           <widget class="QLabel" name="labelCommonlyUsedTimestampServers">
             <property name="text">
-             <string>DigiCert</string>
+             <string>Commonly used timestamp servers</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButtonPasteSectigoTimestampServer">
-            <property name="text">
-             <string>Sectigo</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButtonPasteGlobalSignTimestampServer">
-            <property name="text">
-             <string>GlobalSign</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButtonPasteCertumTimestampServer">
-            <property name="text">
-             <string>Certum</string>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayoutTimestampServerUrlShortcutButtons">
+            <item>
+             <widget class="QPushButton" name="pushButtonPasteDigiCertTimestampServer">
+              <property name="text">
+               <string>DigiCert</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButtonPasteSectigoTimestampServer">
+              <property name="text">
+               <string>Sectigo</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButtonPasteGlobalSignTimestampServer">
+              <property name="text">
+               <string>GlobalSign</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButtonPasteCertumTimestampServer">
+              <property name="text">
+               <string>Certum</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
