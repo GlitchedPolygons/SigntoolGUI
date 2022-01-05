@@ -32,8 +32,19 @@ private slots:
 
     void on_pushButtonClearFilesToVerifyList_clicked();
 
+    void on_pushButtonPasteDigiCertTimestampServer_clicked();
+
+    void on_pushButtonPasteSectigoTimestampServer_clicked();
+
+    void on_pushButtonPasteGlobalSignTimestampServer_clicked();
+
+    void on_pushButtonPasteCertumTimestampServer_clicked();
+
+    void on_pushButtonRevertAllSettingsToDefaultValues_clicked();
+
 private:
     Ui::MainWindow* ui;
     bool busy = false;
+    void loadSettings();
 };
 #endif // MAINWINDOW_H

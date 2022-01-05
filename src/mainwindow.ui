@@ -319,6 +319,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="checkBoxSaveWindowSizeOnQuit">
+          <property name="text">
+           <string>Save window size on quit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="Line" name="lineCheckboxes">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -340,6 +347,9 @@
              <widget class="QRadioButton" name="radioButtonHashAlgoSHA256">
               <property name="text">
                <string>SHA256</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroupHashAlgo</string>
@@ -398,6 +408,9 @@
              <widget class="QRadioButton" name="radioButtonTimestampHashAlgoSHA256">
               <property name="text">
                <string>SHA256</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroupTimestampHashAlgo</string>
@@ -463,6 +476,45 @@
          </layout>
         </item>
         <item>
+         <widget class="QLabel" name="labelCommonlyUsedTimestampServers">
+          <property name="text">
+           <string>Commonly used timestamp servers</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayoutTimestampServerUrlShortcutButtons">
+          <item>
+           <widget class="QPushButton" name="pushButtonPasteDigiCertTimestampServer">
+            <property name="text">
+             <string>DigiCert</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonPasteSectigoTimestampServer">
+            <property name="text">
+             <string>Sectigo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonPasteGlobalSignTimestampServer">
+            <property name="text">
+             <string>GlobalSign</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonPasteCertumTimestampServer">
+            <property name="text">
+             <string>Certum</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <spacer name="verticalSpacerSettings">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -474,6 +526,13 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonRevertAllSettingsToDefaultValues">
+          <property name="text">
+           <string>Restore all default settings</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

@@ -15,13 +15,62 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
 
     QSettings::setDefaultFormat(QSettings::IniFormat);
-    QSettings settings;
 
-    const QString pfxFile = settings.value(Constants::Settings::pfxFile, QVariant("")).toString();
+    ui->buttonGroupHashAlgo->setId(ui->radioButtonHashAlgoSHA256, 0);
+    ui->buttonGroupHashAlgo->setId(ui->radioButtonHashAlgoSHA384, 1);
+    ui->buttonGroupHashAlgo->setId(ui->radioButtonHashAlgoSHA512, 2);
+
+    ui->buttonGroupTimestampHashAlgo->setId(ui->radioButtonTimestampHashAlgoSHA256, 0);
+    ui->buttonGroupTimestampHashAlgo->setId(ui->radioButtonTimestampHashAlgoSHA384, 1);
+    ui->buttonGroupTimestampHashAlgo->setId(ui->radioButtonTimestampHashAlgoSHA512, 2);
+
+    ui->labelAboutText->setText(QString("About Signtool GUI - v%1").arg(Constants::appVersion));
+
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
 {
+    QSettings settings;
+
+    const bool saveHashAlgo = ui->checkBoxSaveHashAlgoOnQuit->isChecked();
+    const bool saveWindowSize = ui->checkBoxSaveWindowSizeOnQuit->isChecked();
+    const bool savePfxFilePath = ui->checkBoxSavePfxFilePathOnQuit->isChecked();
+    const bool saveTimestampHashAlgo = ui->checkBoxSaveTimestampHashAlgoOnQuit->isChecked();
+    const bool saveTimestampServerUrl = ui->checkBoxSaveTimestampServerUrlOnQuit->isChecked();
+
+    settings.setValue(Constants::Settings::saveHashAlgoOnQuit, QVariant(saveHashAlgo));
+    settings.setValue(Constants::Settings::saveWindowSizeOnQuit, QVariant(saveWindowSize));
+    settings.setValue(Constants::Settings::savePfxFilePathOnQuit, QVariant(savePfxFilePath));
+    settings.setValue(Constants::Settings::saveTimestampHashAlgoOnQuit, QVariant(saveTimestampHashAlgo));
+    settings.setValue(Constants::Settings::saveTimestampServerUrlOnQuit, QVariant(saveTimestampServerUrl));
+
+    if (saveHashAlgo)
+    {
+        settings.setValue(Constants::Settings::hashAlgo, QVariant(ui->buttonGroupHashAlgo->checkedId()));
+    }
+
+    if (savePfxFilePath)
+    {
+        settings.setValue(Constants::Settings::pfxFile, QVariant(ui->lineEditPfxFile->text()));
+    }
+
+    if (saveTimestampHashAlgo)
+    {
+        settings.setValue(Constants::Settings::timestampHashAlgo, QVariant(ui->buttonGroupTimestampHashAlgo->checkedId()));
+    }
+
+    if (saveTimestampServerUrl)
+    {
+        settings.setValue(Constants::Settings::timestampServerUrl, QVariant(ui->lineEditTimestampServer->text()));
+    }
+
+    if (saveWindowSize)
+    {
+        settings.setValue(Constants::Settings::windowWidth, QVariant(width()));
+        settings.setValue(Constants::Settings::windowHeight, QVariant(height()));
+    }
+
     delete ui;
 }
 
@@ -29,6 +78,74 @@ static const inline BOOL FileExists(LPCWSTR filePath)
 {
     const DWORD attributes = GetFileAttributesW(filePath);
     return (attributes != INVALID_FILE_ATTRIBUTES && !(attributes & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+void MainWindow::loadSettings()
+{
+    QSettings settings;
+
+    const QString pfxFile = settings.value(Constants::Settings::pfxFile, QVariant("")).toString();
+    const bool saveWindowSize = settings.value(Constants::Settings::saveWindowSizeOnQuit, QVariant(Constants::Settings::DefaultValues::saveWindowSizeOnQuit)).toBool();
+    const bool saveHashAlgo = settings.value(Constants::Settings::saveHashAlgoOnQuit, QVariant(Constants::Settings::DefaultValues::saveHashAlgoOnQuit)).toBool();
+    const bool savePfxFilePath = settings.value(Constants::Settings::savePfxFilePathOnQuit, QVariant(Constants::Settings::DefaultValues::savePfxFilePathOnQuit)).toBool();
+    const bool saveTimestampHashAlgo = settings.value(Constants::Settings::saveTimestampHashAlgoOnQuit, QVariant(Constants::Settings::DefaultValues::saveTimestampHashAlgoOnQuit)).toBool();
+    const bool saveTimestampServerUrl = settings.value(Constants::Settings::saveTimestampServerUrlOnQuit, QVariant(Constants::Settings::DefaultValues::saveTimestampServerUrlOnQuit)).toBool();
+
+    ui->checkBoxSaveHashAlgoOnQuit->setChecked(saveHashAlgo);
+    ui->checkBoxSavePfxFilePathOnQuit->setChecked(savePfxFilePath);
+    ui->checkBoxSaveWindowSizeOnQuit->setChecked(saveWindowSize);
+    ui->checkBoxSaveTimestampHashAlgoOnQuit->setChecked(saveTimestampHashAlgo);
+    ui->checkBoxSaveTimestampServerUrlOnQuit->setChecked(saveTimestampServerUrl);
+
+    if (saveHashAlgo)
+    {
+        switch (settings.value(Constants::Settings::hashAlgo, QVariant(Constants::Settings::DefaultValues::hashAlgo)).toInt())
+        {
+            default:
+                ui->radioButtonHashAlgoSHA256->setChecked(true);
+                break;
+            case 1:
+                ui->radioButtonHashAlgoSHA384->setChecked(true);
+                break;
+            case 2:
+                ui->radioButtonHashAlgoSHA512->setChecked(true);
+                break;
+        }
+    }
+
+    if (saveTimestampHashAlgo)
+    {
+        switch (settings.value(Constants::Settings::timestampHashAlgo, QVariant(Constants::Settings::DefaultValues::timestampHashAlgo)).toInt())
+        {
+            default:
+                ui->radioButtonTimestampHashAlgoSHA256->setChecked(true);
+                break;
+            case 1:
+                ui->radioButtonTimestampHashAlgoSHA384->setChecked(true);
+                break;
+            case 2:
+                ui->radioButtonTimestampHashAlgoSHA512->setChecked(true);
+                break;
+        }
+    }
+
+    if (savePfxFilePath)
+    {
+        ui->lineEditPfxFile->setText(settings.value(Constants::Settings::pfxFile, QVariant(Constants::Settings::DefaultValues::pfxFile)).toString());
+    }
+
+    if (saveTimestampServerUrl)
+    {
+        ui->lineEditTimestampServer->setText(settings.value(Constants::Settings::timestampServerUrl, QVariant(Constants::Settings::DefaultValues::timestampServerUrl)).toString());
+    }
+
+    if (saveWindowSize)
+    {
+        const int w = settings.value(Constants::Settings::windowWidth, QVariant(minimumSize().width())).toInt();
+        const int h = settings.value(Constants::Settings::windowHeight, QVariant(minimumSize().height())).toInt();
+
+        this->resize(w > 0 ? w : -w, h > 0 ? h : -h);
+    }
 }
 
 void MainWindow::on_pushButtonBrowsePfxFile_clicked()
@@ -74,7 +191,11 @@ void MainWindow::on_pushButtonSign_clicked()
 
     busy = true;
 
+    if (ui->lineEditTimestampServer->text().isEmpty())
+        ui->lineEditTimestampServer->setText(Constants::Settings::DefaultValues::timestampServerUrl);
+
     const QString fileName = ui->lineEditPfxFile->text();
+    const QString timestampServer = ui->lineEditTimestampServer->text();
 
     if (fileName.isEmpty())
     {
@@ -93,6 +214,7 @@ void MainWindow::on_pushButtonSign_clicked()
     }
 
     // TODO: sign all files here
+
     busy = false;
 }
 
@@ -126,3 +248,55 @@ void MainWindow::on_pushButtonClearFilesToVerifyList_clicked()
 {
     ui->listWidgetFilesToVerify->clear();
 }
+
+void MainWindow::on_pushButtonPasteDigiCertTimestampServer_clicked()
+{
+    ui->lineEditTimestampServer->setText("http://timestamp.digicert.com");
+}
+
+void MainWindow::on_pushButtonPasteSectigoTimestampServer_clicked()
+{
+    ui->lineEditTimestampServer->setText("http://timestamp.sectigo.com");
+}
+
+void MainWindow::on_pushButtonPasteGlobalSignTimestampServer_clicked()
+{
+    ui->lineEditTimestampServer->setText("http://timestamp.globalsign.com/scripts/timstamp.dll");
+}
+
+void MainWindow::on_pushButtonPasteCertumTimestampServer_clicked()
+{
+    ui->lineEditTimestampServer->setText("http://time.certum.pl");
+}
+
+void MainWindow::on_pushButtonRevertAllSettingsToDefaultValues_clicked()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Are you absolutely sure?");
+    msgBox.setInformativeText("This action is irreversible! Do you really want to revert all settings to their default values?\n\nThis also clears the .pfx/.p12 file path and password fields.");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+
+    const int r = msgBox.exec();
+    if (r != QMessageBox::Yes)
+    {
+        return;
+    }
+
+    ui->checkBoxSaveHashAlgoOnQuit->setChecked(true);
+    ui->checkBoxSavePfxFilePathOnQuit->setChecked(true);
+    ui->checkBoxSaveTimestampHashAlgoOnQuit->setChecked(true);
+    ui->checkBoxSaveTimestampServerUrlOnQuit->setChecked(true);
+    ui->checkBoxSaveWindowSizeOnQuit->setChecked(false);
+
+    ui->radioButtonHashAlgoSHA512->setChecked(true);
+    ui->radioButtonTimestampHashAlgoSHA512->setChecked(true);
+
+    ui->lineEditTimestampServer->setText(Constants::Settings::DefaultValues::timestampServerUrl);
+
+    ui->lineEditPfxFile->clear();
+    ui->lineEditPfxFilePassword->clear();
+
+    resize(minimumWidth(), minimumHeight());
+}
+
