@@ -182,6 +182,19 @@ void MainWindow::on_pushButtonShowPfxFilePassword_released()
     ui->pushButtonShowPfxFilePassword->setText("Show");
 }
 
+static inline const QString hashAlgoStringFromId(const int id)
+{
+    switch (id)
+    {
+        default:
+            return QString("SHA256");
+        case 1:
+            return QString("SHA384");
+        case 2:
+            return QString("SHA512");
+    }
+}
+
 void MainWindow::on_pushButtonSign_clicked()
 {
     if (busy)
@@ -213,7 +226,27 @@ void MainWindow::on_pushButtonSign_clicked()
         return;
     }
 
-    // TODO: sign all files here
+    QString cmdBase = QString("signtool.exe sign /fd \"%1\" /td \"%2\" /tr \"%3\" /f \"%4\" /p \"%5\" ")
+    .arg
+    (
+        hashAlgoStringFromId(ui->buttonGroupHashAlgo->checkedId()),
+        hashAlgoStringFromId(ui->buttonGroupTimestampHashAlgo->checkedId()),
+        ui->lineEditTimestampServer->text().isEmpty() ? Constants::Settings::DefaultValues::timestampServerUrl : ui->lineEditTimestampServer->text(),
+        ui->lineEditPfxFile->text(),
+        ui->lineEditPfxFilePassword->text()
+    );
+
+    for (const QListWidgetItem* fileToSign : ui->listWidgetFilesToSign->items(nullptr))
+    {
+        const QString filePath = fileToSign->text();
+
+        QString cmd;
+        cmd.reserve(512);
+        cmd.append(cmdBase);
+        cmd.append(QString("\"%1\"").arg(filePath));
+
+        // TODO: sign all files here
+    }
 
     busy = false;
 }
@@ -299,4 +332,3 @@ void MainWindow::on_pushButtonRevertAllSettingsToDefaultValues_clicked()
 
     resize(minimumWidth(), minimumHeight());
 }
-
