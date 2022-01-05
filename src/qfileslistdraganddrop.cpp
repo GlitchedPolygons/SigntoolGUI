@@ -5,6 +5,7 @@
 #include <QMimeData>
 #include <QUrl>
 #include <QFile>
+#include <QFileInfo>
 #include <QMessageBox>
 
 QFilesListDragAndDrop::QFilesListDragAndDrop(QWidget* parent) : QListWidget { parent }
@@ -21,7 +22,26 @@ QFilesListDragAndDrop::QFilesListDragAndDrop(QWidget* parent) : QListWidget { pa
 
 void QFilesListDragAndDrop::dragEnterEvent(QDragEnterEvent* e)
 {
-    e->setAccepted(e->mimeData()->hasUrls());
+    if (!e->mimeData()->hasUrls())
+    {
+        e->ignore();
+        return;
+    }
+
+    e->setDropAction(Qt::DropAction::CopyAction);
+    e->accept();
+}
+
+void QFilesListDragAndDrop::dragMoveEvent(QDragMoveEvent* e)
+{
+    if (!e->mimeData()->hasUrls())
+    {
+        e->ignore();
+        return;
+    }
+
+    e->setDropAction(Qt::DropAction::CopyAction);
+    e->accept();
 }
 
 void QFilesListDragAndDrop::dropEvent(QDropEvent* e)
@@ -36,7 +56,13 @@ void QFilesListDragAndDrop::dropEvent(QDropEvent* e)
 
     for (const QUrl& url : urls)
     {
-        this->addItem(url.toLocalFile());
+        const QString filePath = url.toLocalFile();
+        const QFileInfo fileInfo(filePath);
+
+        if (!fileInfo.exists() || fileInfo.isDir() || !findItems(filePath, Qt::MatchFixedString).empty())
+            continue;
+
+        this->addItem(filePath);
     }
 
     e->setAccepted(true);

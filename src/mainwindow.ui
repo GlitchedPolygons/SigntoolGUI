@@ -119,12 +119,15 @@
         <item>
          <widget class="QLabel" name="labelFilesToSign">
           <property name="text">
-           <string>Files to sign</string>
+           <string>Files to sign (*.exe, *.dll, *.cab, *.cat, *.appx)</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QFilesListDragAndDrop" name="listWidgetFilesToSign">
+          <property name="acceptDrops">
+           <bool>true</bool>
+          </property>
           <property name="dragEnabled">
            <bool>true</bool>
           </property>
@@ -133,6 +136,9 @@
           </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::MultiSelection</enum>
           </property>
           <property name="sortingEnabled">
            <bool>false</bool>
@@ -209,6 +215,15 @@
            <widget class="QFilesListDragAndDrop" name="listWidgetFilesToVerify">
             <property name="acceptDrops">
              <bool>true</bool>
+            </property>
+            <property name="dragEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="dragDropMode">
+             <enum>QAbstractItemView::DragDrop</enum>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::MultiSelection</enum>
             </property>
            </widget>
           </item>
@@ -824,7 +839,7 @@ p, li { white-space: pre-wrap; }
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroupTimestampHashAlgo"/>
   <buttongroup name="buttonGroupHashAlgo"/>
+  <buttongroup name="buttonGroupTimestampHashAlgo"/>
  </buttongroups>
 </ui>
