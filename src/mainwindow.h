@@ -18,19 +18,19 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_browsePfxFilePushButton_clicked();
+    void on_pushButtonBrowsePfxFile_clicked();
 
-    void on_showPfxFilePasswordPushButton_pressed();
+    void on_pushButtonShowPfxFilePassword_pressed();
 
-    void on_showPfxFilePasswordPushButton_released();
+    void on_pushButtonShowPfxFilePassword_released();
 
-    void on_signPushButton_clicked();
+    void on_pushButtonSign_clicked();
 
-    void on_clearFilesToSignListPushButton_clicked();
+    void on_pushButtonClearFilesToSignList_clicked();
 
-    void on_verifyFilesPushButton_clicked();
+    void on_pushButtonVerifyFiles_clicked();
 
-    void on_clearFilesToVerifyListPushButton_clicked();
+    void on_pushButtonClearFilesToVerifyList_clicked();
 
 private:
     Ui::MainWindow* ui;

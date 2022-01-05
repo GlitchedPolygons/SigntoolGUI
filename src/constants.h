@@ -14,6 +14,8 @@ struct Constants
     static inline const char* appVersion = "1.0.0";
     static inline const char* orgName = "Glitched Polygons";
     static inline const char* orgDomain = "glitchedpolygons.com";
+
+    static inline const char* defaultTimestampServerUrl = "http://timestamp.digicert.com";
 };
 
 #endif // CONSTANTS_H

@@ -16,6 +16,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
         ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/src/qfileslistdraganddrop.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/src/qfileslistdraganddrop.h
         ${CMAKE_CURRENT_LIST_DIR}/src/mainwindow.cpp
         ${CMAKE_CURRENT_LIST_DIR}/src/mainwindow.h
         ${CMAKE_CURRENT_LIST_DIR}/src/mainwindow.ui
@@ -47,7 +49,7 @@ endif()
 target_link_libraries(signtoolgui PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 set_target_properties(signtoolgui PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+    MACOSX_BUNDLE_GUI_IDENTIFIER signtoolgui.glitchedpolygons.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )

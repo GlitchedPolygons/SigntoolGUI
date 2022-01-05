@@ -24,26 +24,26 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="signTab">
+      <widget class="QWidget" name="tabSign">
        <attribute name="title">
         <string>Sign</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QVBoxLayout" name="browsePfxFileVerticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayoutBrowsePfxFile">
           <item>
-           <widget class="QLabel" name="browsePfxFileLabel">
+           <widget class="QLabel" name="labelBrowsePfxFile">
             <property name="text">
              <string>PFX/P12 File</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="browsePfxFileHorizontalLayout">
+           <layout class="QHBoxLayout" name="horizontalLayoutBrowsePfxFile">
             <item>
-             <widget class="QLineEdit" name="pfxFileLineEdit">
+             <widget class="QLineEdit" name="lineEditPfxFile">
               <property name="dragEnabled">
                <bool>true</bool>
               </property>
@@ -59,7 +59,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="browsePfxFilePushButton">
+             <widget class="QPushButton" name="pushButtonBrowsePfxFile">
               <property name="maximumSize">
                <size>
                 <width>80</width>
@@ -76,18 +76,18 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="pfxFilePasswordVerticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayoutPfxFilePassword">
           <item>
-           <widget class="QLabel" name="pfxFilePasswordLabel">
+           <widget class="QLabel" name="labelPfxFilePassword">
             <property name="text">
              <string>Password</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="pfxFilePasswordHorizontalLayout">
+           <layout class="QHBoxLayout" name="horizontalLayoutPfxFilePassword">
             <item>
-             <widget class="QLineEdit" name="pfxFilePasswordLineEdit">
+             <widget class="QLineEdit" name="lineEditPfxFilePassword">
               <property name="echoMode">
                <enum>QLineEdit::Password</enum>
               </property>
@@ -100,7 +100,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="showPfxFilePasswordPushButton">
+             <widget class="QPushButton" name="pushButtonShowPfxFilePassword">
               <property name="maximumSize">
                <size>
                 <width>80</width>
@@ -117,14 +117,17 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="filesToSignLabel">
+         <widget class="QLabel" name="labelFilesToSign">
           <property name="text">
            <string>Files to sign</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="filesToSignListWidget">
+         <widget class="QFilesListDragAndDrop" name="listWidgetFilesToSign">
+          <property name="acceptDrops">
+           <bool>true</bool>
+          </property>
           <property name="dragEnabled">
            <bool>true</bool>
           </property>
@@ -140,7 +143,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="signAndClearButtonsHorizontalLayout">
+         <layout class="QHBoxLayout" name="horizontalLayoutSignAndClearButtons">
           <property name="spacing">
            <number>8</number>
           </property>
@@ -151,14 +154,14 @@
            <number>8</number>
           </property>
           <item>
-           <widget class="QPushButton" name="signPushButton">
+           <widget class="QPushButton" name="pushButtonSign">
             <property name="text">
              <string>Sign all</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="clearFilesToSignListPushButton">
+           <widget class="QPushButton" name="pushButtonClearFilesToSignList">
             <property name="text">
              <string>Clear list</string>
             </property>
@@ -167,14 +170,14 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="signOutputLabel">
+         <widget class="QLabel" name="labelSignOutput">
           <property name="text">
            <string>Output</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="signOutputTextEdit">
+         <widget class="QTextEdit" name="textEditSignOutput">
           <property name="tabChangesFocus">
            <bool>true</bool>
           </property>
@@ -191,36 +194,40 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="verifyTab">
+      <widget class="QWidget" name="tabVerify">
        <attribute name="title">
         <string>Verify</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <layout class="QVBoxLayout" name="filesToVerifyVerticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayoutFilesToVerify">
           <item>
-           <widget class="QLabel" name="verifyListLabel">
+           <widget class="QLabel" name="labelFilesToVerify">
             <property name="text">
              <string>Files to verify (*.exe, *.dll, *.cab, *.cat, *.appx)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="filesToVerifyListWidget"/>
+           <widget class="QFilesListDragAndDrop" name="listWidgetFilesToVerify">
+            <property name="acceptDrops">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="filesToVerifyListButtonsHorizontalLayout">
+         <layout class="QHBoxLayout" name="horizontalLayoutFilesToVerifyListButtons">
           <item>
-           <widget class="QPushButton" name="verifyFilesPushButton">
+           <widget class="QPushButton" name="pushButtonVerifyFiles">
             <property name="text">
              <string>Verify all</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="clearFilesToVerifyListPushButton">
+           <widget class="QPushButton" name="pushButtonClearFilesToVerifyList">
             <property name="text">
              <string>Clear list</string>
             </property>
@@ -229,16 +236,16 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="filesVerificationOutputVerticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayoutFilesVerificationOutput">
           <item>
-           <widget class="QLabel" name="filesVerificationOutput">
+           <widget class="QLabel" name="labelFilesVerificationOutput">
             <property name="text">
              <string>Output</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTextEdit" name="filesVerificationOutputTextEdit">
+           <widget class="QTextEdit" name="textEditFilesVerificationOutput">
             <property name="tabChangesFocus">
              <bool>true</bool>
             </property>
@@ -257,22 +264,238 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="aboutTab">
+      <widget class="QWidget" name="tabSettings">
+       <attribute name="title">
+        <string>Settings</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QCheckBox" name="checkBoxSavePfxFilePathOnQuit">
+          <property name="toolTip">
+           <string>Should the last selected .pfx/.p12 file be saved between sessions?</string>
+          </property>
+          <property name="text">
+           <string>Save .pfx/.p12 file on quit</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBoxSaveHashAlgoOnQuit">
+          <property name="toolTip">
+           <string>Should the hashing algorithm setting below be saved between sessions?</string>
+          </property>
+          <property name="text">
+           <string>Save hashing algorithm on quit</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBoxSaveTimestampHashAlgoOnQuit">
+          <property name="toolTip">
+           <string>Should the timestamp hashing algorithm setting below be saved between sessions?</string>
+          </property>
+          <property name="text">
+           <string>Save timestamp hashing algorithm on quit</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBoxSaveTimestampServerUrlOnQuit">
+          <property name="toolTip">
+           <string>Should the timestamp server url below be saved between sessions?</string>
+          </property>
+          <property name="text">
+           <string>Save timestamp server url on quit</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Line" name="lineCheckboxes">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayoutHashAlgo">
+          <item>
+           <widget class="QLabel" name="labelHashAlgo">
+            <property name="text">
+             <string>Hashing algorithm</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutHashAlgo">
+            <item>
+             <widget class="QRadioButton" name="radioButtonHashAlgoSHA256">
+              <property name="text">
+               <string>SHA256</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroupHashAlgo</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButtonHashAlgoSHA384">
+              <property name="text">
+               <string>SHA384</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroupHashAlgo</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButtonHashAlgoSHA512">
+              <property name="text">
+               <string>SHA512</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroupHashAlgo</string>
+              </attribute>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="lineHashAlgo">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayoutTimestampHashAlgo">
+          <item>
+           <widget class="QLabel" name="labelTimestampHashAlgo">
+            <property name="toolTip">
+             <string>The digest algorithm to use by the RFC 3161 timestamp server (this is no guarantee: some servers ignore this parameter entirely).</string>
+            </property>
+            <property name="text">
+             <string>Timestamp hashing algorithm</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutTimestampHashAlgo">
+            <item>
+             <widget class="QRadioButton" name="radioButtonTimestampHashAlgoSHA256">
+              <property name="text">
+               <string>SHA256</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroupTimestampHashAlgo</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButtonTimestampHashAlgoSHA384">
+              <property name="text">
+               <string>SHA384</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroupTimestampHashAlgo</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButtonTimestampHashAlgoSHA512">
+              <property name="text">
+               <string>SHA512</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroupTimestampHashAlgo</string>
+              </attribute>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="lineTimestampHashAlgo">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayoutTimestampServer">
+          <item>
+           <widget class="QLabel" name="labelTimestampServer">
+            <property name="text">
+             <string>Timestamp server</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEditTimestampServer">
+            <property name="text">
+             <string>http://timestamp.digicert.com</string>
+            </property>
+            <property name="placeholderText">
+             <string>http://timestamp.digicert.com</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacerSettings">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>303</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabAbout">
        <attribute name="title">
         <string>About</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <layout class="QVBoxLayout" name="aboutTextVerticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayoutAboutText">
           <item>
-           <widget class="QLabel" name="aboutTitleLabel">
+           <widget class="QLabel" name="labelAboutText">
             <property name="text">
              <string>About Signtool GUI</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTextBrowser" name="aboutTextBrowser">
+           <widget class="QTextBrowser" name="textBrowserAboutText">
             <property name="html">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -298,16 +521,16 @@ p, li { white-space: pre-wrap; }
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="legalNoticeVerticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayoutLegalNotice">
           <item>
-           <widget class="QLabel" name="legalNoticeLabel">
+           <widget class="QLabel" name="labelLegalNotice">
             <property name="text">
              <string>Qt | Legal notice</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTextBrowser" name="legalNoticeTextBrowser">
+           <widget class="QTextBrowser" name="textBrowserLegalNotice">
             <property name="html">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -514,6 +737,17 @@ p, li { white-space: pre-wrap; }
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QFilesListDragAndDrop</class>
+   <extends>QListWidget</extends>
+   <header>qfileslistdraganddrop.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroupHashAlgo"/>
+  <buttongroup name="buttonGroupTimestampHashAlgo"/>
+ </buttongroups>
 </ui>
