@@ -74,12 +74,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-static const inline BOOL FileExists(LPCWSTR filePath)
-{
-    const DWORD attributes = GetFileAttributesW(filePath);
-    return (attributes != INVALID_FILE_ATTRIBUTES && !(attributes & FILE_ATTRIBUTE_DIRECTORY));
-}
-
 void MainWindow::loadSettings()
 {
     QSettings settings;
@@ -157,9 +151,7 @@ void MainWindow::on_pushButtonBrowsePfxFile_clicked()
         return;
     }
 
-    QFile file(fileName);
-
-    if (!file.exists()) [[unlikely]]
+    if (!QFile::exists(fileName)) [[unlikely]]
     {
         QMessageBox msgBox;
         msgBox.setText("File does not exist or access to it failed.");
@@ -217,9 +209,7 @@ void MainWindow::on_pushButtonSign_clicked()
         return;
     }
 
-    QFile file(fileName);
-
-    if (!file.exists()) [[unlikely]]
+    if (!QFile::exists(fileName)) [[unlikely]]
     {
         ui->textEditSignOutput->setText("The specified .pfx/.p12 file does not exist or access to it failed.");
         busy = false;
@@ -270,6 +260,18 @@ void MainWindow::on_pushButtonVerifyFiles_clicked()
         ui->textEditFilesVerificationOutput->setText("No files to verify.\n\nPlease drag & drop one or more binaries into the list above to proceed!");
         busy = false;
         return;
+    }
+
+    QString cmdBase = "signtool.exe verify /pa ";
+
+    for (const QListWidgetItem* fileToVerify : ui->listWidgetFilesToVerify->items(nullptr))
+    {
+        const QString filePath = fileToVerify->text();
+
+        QString cmd;
+        cmd.reserve(256);
+        cmd.append(cmdBase);
+        cmd.append(QString("\"%1\"").arg(filePath));
     }
 
     // TODO: verify list of files here
