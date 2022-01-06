@@ -104,3 +104,14 @@ void QFilesListDragAndDrop::dropEvent(QDropEvent* event)
 
     event->setAccepted(true);
 }
+
+void QFilesListDragAndDrop::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key::Key_Delete)
+    {
+        for (QListWidgetItem* selectedItem : this->selectedItems())
+        {
+            delete this->takeItem(this->row(selectedItem));
+        }
+    }
+}
