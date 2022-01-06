@@ -12,9 +12,9 @@ public:
     explicit QFilesListDragAndDrop(QWidget* parent = nullptr);
 
 protected:
-    void dragEnterEvent(QDragEnterEvent* e) override;
-    void dragMoveEvent(QDragMoveEvent* e) override;
-    void dropEvent(QDropEvent* e) override;
+    void dragEnterEvent(QDragEnterEvent*) override;
+    void dragMoveEvent(QDragMoveEvent*) override;
+    void dropEvent(QDropEvent*) override;
 };
 
 #endif // QFILESLISTDRAGANDDROP_H

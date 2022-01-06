@@ -199,17 +199,17 @@ void MainWindow::on_pushButtonSign_clicked()
     if (ui->lineEditTimestampServer->text().isEmpty())
         ui->lineEditTimestampServer->setText(Constants::Settings::DefaultValues::timestampServerUrl);
 
-    const QString fileName = ui->lineEditPfxFile->text();
+    const QString pfxFilePath = ui->lineEditPfxFile->text();
     const QString timestampServer = ui->lineEditTimestampServer->text();
 
-    if (fileName.isEmpty())
+    if (pfxFilePath.isEmpty())
     {
         ui->textEditSignOutput->setText("No .pfx/.p12 file selected... Please provide a valid file to use for signing!\n\nUse the \"Browse\" button above and select the code signing certificate to use!");
         busy = false;
         return;
     }
 
-    if (!QFile::exists(fileName)) [[unlikely]]
+    if (!QFile::exists(pfxFilePath)) [[unlikely]]
     {
         ui->textEditSignOutput->setText("The specified .pfx/.p12 file does not exist or access to it failed.");
         busy = false;
@@ -231,8 +231,8 @@ void MainWindow::on_pushButtonSign_clicked()
     (
         hashAlgoStringFromId(ui->buttonGroupHashAlgo->checkedId()),
         hashAlgoStringFromId(ui->buttonGroupTimestampHashAlgo->checkedId()),
-        ui->lineEditTimestampServer->text().isEmpty() ? Constants::Settings::DefaultValues::timestampServerUrl : ui->lineEditTimestampServer->text(),
-        ui->lineEditPfxFile->text(),
+        timestampServer,
+        pfxFilePath,
         ui->lineEditPfxFilePassword->text()
     );
 

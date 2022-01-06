@@ -12,58 +12,95 @@ QFilesListDragAndDrop::QFilesListDragAndDrop(QWidget* parent) : QListWidget { pa
 {
     setSelectionMode(QAbstractItemView::SingleSelection);
     setMouseTracking(true);
+    setAcceptDrops(true);
     setDragEnabled(true);
     setDragDropMode(QAbstractItemView::DragDrop);
     setDropIndicatorShown(true);
-    setAcceptDrops(true);
     viewport()->setAcceptDrops(true);
 
 }
 
-void QFilesListDragAndDrop::dragEnterEvent(QDragEnterEvent* e)
+static const inline bool isValidFileExtension(const QUrl& url)
 {
-    if (!e->mimeData()->hasUrls())
+    if (url.toLocalFile().endsWith(".exe", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".msi", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".dll", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".cab", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".cat", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".appx", Qt::CaseInsensitive))
     {
-        e->ignore();
-        return;
+        return true;
     }
 
-    e->setDropAction(Qt::DropAction::CopyAction);
-    e->accept(); // TODO: check if exe, msi  or similar file -> don't allow stuff like png etc...
+    return false;
 }
 
-void QFilesListDragAndDrop::dragMoveEvent(QDragMoveEvent* e)
+void QFilesListDragAndDrop::dragEnterEvent(QDragEnterEvent* event)
 {
-    if (!e->mimeData()->hasUrls())
+    if (!event->mimeData()->hasUrls())
     {
-        e->ignore();
+        event->ignore();
         return;
     }
 
-    e->setDropAction(Qt::DropAction::CopyAction);
-    e->accept();
+    bool valid = false;
+
+    for (const QUrl& url : event->mimeData()->urls())
+    {
+        if (isValidFileExtension(url))
+        {
+            valid = true;
+            break;
+        }
+    }
+
+    if (!valid)
+    {
+        event->ignore();
+        return;
+    }
+
+    event->setDropAction(Qt::DropAction::CopyAction);
+    event->accept();
 }
 
-void QFilesListDragAndDrop::dropEvent(QDropEvent* e)
+void QFilesListDragAndDrop::dragMoveEvent(QDragMoveEvent* event)
 {
-    if (!e->mimeData()->hasUrls())
+    if (!event->mimeData()->hasUrls())
     {
-        e->setAccepted(false);
+        event->ignore();
         return;
     }
 
-    const QList<QUrl>& urls = e->mimeData()->urls();
+    event->setDropAction(Qt::DropAction::CopyAction);
+    event->accept();
+}
 
-    for (const QUrl& url : urls)
+void QFilesListDragAndDrop::dropEvent(QDropEvent* event)
+{
+    if (!event->mimeData()->hasUrls())
     {
+        event->setAccepted(false);
+        return;
+    }
+
+    for (const QUrl& url : event->mimeData()->urls())
+    {
+        if (!isValidFileExtension(url))
+        {
+            continue;
+        }
+
         const QString filePath = url.toLocalFile();
         const QFileInfo fileInfo(filePath);
 
         if (!fileInfo.exists() || fileInfo.isDir() || !findItems(filePath, Qt::MatchFixedString).empty())
+        {
             continue;
+        }
 
         this->addItem(filePath);
     }
 
-    e->setAccepted(true);
+    event->setAccepted(true);
 }
