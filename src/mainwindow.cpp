@@ -216,6 +216,13 @@ void MainWindow::on_pushButtonSign_clicked()
         return;
     }
 
+    if (ui->listWidgetFilesToSign->count() == 0)
+    {
+        ui->textEditSignOutput->setText("No files to sign.\n\nPlease drag & drop one or more binaries into the list above to proceed!");
+        busy = false;
+        return;
+    }
+
     ui->textEditSignOutput->setText("Signing above specified files...");
     repaint();
 
@@ -265,7 +272,15 @@ void MainWindow::on_pushButtonSign_clicked()
             // Avoid memory leak by closing process handle.
             CloseHandle(processInformation.hProcess);
 
-            output.append(QString("✅  Signed \"%1\" successfully! \n").arg(filePath));
+            if (error == 0)
+            {
+                output.append(QString("✅  Signed \"%1\" successfully! \n").arg(filePath));
+            }
+            else
+            {
+                ++failures;
+                output.append(QString("❌  Failed to sign \"%1\" \n").arg(filePath));
+            }
 
             ui->textEditSignOutput->setText(output);
             repaint();
@@ -282,7 +297,7 @@ void MainWindow::on_pushButtonSign_clicked()
         }
     }
 
-    output.append(QString("-------------------------------------------------------------------------\n Signed %1 / %2 files successfully! \n\n").arg(ui->listWidgetFilesToSign->count() - failures).arg(ui->listWidgetFilesToSign->count()));
+    output.append(QString("----------------------------------------------------------------------\n Signed %1 / %2 files successfully! \n\n").arg(ui->listWidgetFilesToSign->count() - failures).arg(ui->listWidgetFilesToSign->count()));
 
     ui->textEditSignOutput->setText(output);
     repaint();
@@ -349,7 +364,15 @@ void MainWindow::on_pushButtonVerifyFiles_clicked()
             // Avoid memory leak by closing process handle.
             CloseHandle(processInformation.hProcess);
 
-            output.append(QString("✅  \"%1\" valid signature! \n").arg(filePath));
+            if (error == 0)
+            {
+                output.append(QString("✅  \"%1\" \n").arg(filePath));
+            }
+            else
+            {
+                ++failures;
+                output.append(QString("❌  \"%1\" \n").arg(filePath));
+            }
 
             ui->textEditFilesVerificationOutput->setText(output);
             repaint();
@@ -366,7 +389,7 @@ void MainWindow::on_pushButtonVerifyFiles_clicked()
         }
     }
 
-    output.append(QString("-------------------------------------------------------------------------\n %1 / %2 files verified successfully! \n\n").arg(ui->listWidgetFilesToVerify->count() - failures).arg(ui->listWidgetFilesToVerify->count()));
+    output.append(QString("----------------------------------------------------------------------\n %1 / %2 files verified successfully! \n\n").arg(ui->listWidgetFilesToVerify->count() - failures).arg(ui->listWidgetFilesToVerify->count()));
 
     ui->textEditFilesVerificationOutput->setText(output);
     repaint();

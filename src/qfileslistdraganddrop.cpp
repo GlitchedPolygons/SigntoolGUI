@@ -29,7 +29,7 @@ void QFilesListDragAndDrop::dragEnterEvent(QDragEnterEvent* e)
     }
 
     e->setDropAction(Qt::DropAction::CopyAction);
-    e->accept();
+    e->accept(); // TODO: check if exe, msi  or similar file -> don't allow stuff like png etc...
 }
 
 void QFilesListDragAndDrop::dragMoveEvent(QDragMoveEvent* e)
@@ -52,7 +52,7 @@ void QFilesListDragAndDrop::dropEvent(QDropEvent* e)
         return;
     }
 
-    const QList<QUrl> urls = e->mimeData()->urls();
+    const QList<QUrl>& urls = e->mimeData()->urls();
 
     for (const QUrl& url : urls)
     {
