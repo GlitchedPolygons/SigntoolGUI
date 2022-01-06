@@ -216,6 +216,9 @@ void MainWindow::on_pushButtonSign_clicked()
         return;
     }
 
+    ui->textEditSignOutput->setText("Signing above specified files...");
+    repaint();
+
     QString cmdBase = QString("signtool.exe sign /fd \"%1\" /td \"%2\" /tr \"%3\" /f \"%4\" /p \"%5\" ")
     .arg
     (
@@ -226,8 +229,14 @@ void MainWindow::on_pushButtonSign_clicked()
         ui->lineEditPfxFilePassword->text()
     );
 
-    for (const QListWidgetItem* fileToSign : ui->listWidgetFilesToSign->items(nullptr))
+    QString output;
+    output.reserve(1024);
+
+    int failures = 0;
+
+    for (int i = 0; i < ui->listWidgetFilesToSign->count(); ++i)
     {
+        const QListWidgetItem* fileToSign = ui->listWidgetFilesToSign->item(i);
         const QString filePath = fileToSign->text();
 
         QString cmd;
@@ -235,8 +244,48 @@ void MainWindow::on_pushButtonSign_clicked()
         cmd.append(cmdBase);
         cmd.append(QString("\"%1\"").arg(filePath));
 
-        // TODO: sign all files here
+        STARTUPINFOW startupInfo;
+        memset(&startupInfo, 0x00, sizeof(startupInfo));
+        startupInfo.cb = sizeof(startupInfo);
+
+        PROCESS_INFORMATION processInformation;
+        memset(&processInformation, 0x00, sizeof(processInformation));
+
+        BOOL success = CreateProcessW(NULL, const_cast<wchar_t*>(cmd.toStdWString().c_str()), NULL, NULL, TRUE, NORMAL_PRIORITY_CLASS | CREATE_NO_WINDOW, NULL, NULL, &startupInfo, &processInformation);
+
+        DWORD error = 0;
+        if (success)
+        {
+            // Wait until process completes.
+            WaitForSingleObject(processInformation.hProcess, 1024 * 64);
+
+            // Check process exit code.
+            GetExitCodeProcess(processInformation.hProcess, &error);
+
+            // Avoid memory leak by closing process handle.
+            CloseHandle(processInformation.hProcess);
+
+            output.append(QString("✅  Signed \"%1\" successfully! \n").arg(filePath));
+
+            ui->textEditSignOutput->setText(output);
+            repaint();
+        }
+        else
+        {
+            ++failures;
+            error = GetLastError();
+
+            output.append(QString("❌  Failed to sign \"%1\" - Error %2 \n").arg(filePath, error));
+
+            ui->textEditSignOutput->setText(output);
+            repaint();
+        }
     }
+
+    output.append(QString("-------------------------------------------------------------------------\n Signed %1 / %2 files successfully! \n\n").arg(ui->listWidgetFilesToSign->count() - failures).arg(ui->listWidgetFilesToSign->count()));
+
+    ui->textEditSignOutput->setText(output);
+    repaint();
 
     busy = false;
 }
@@ -264,17 +313,63 @@ void MainWindow::on_pushButtonVerifyFiles_clicked()
 
     QString cmdBase = "signtool.exe verify /pa ";
 
-    for (const QListWidgetItem* fileToVerify : ui->listWidgetFilesToVerify->items(nullptr))
+    QString output;
+    output.reserve(1024);
+
+    int failures = 0;
+
+    for (int i = 0; i < ui->listWidgetFilesToVerify->count(); ++i)
     {
+        const QListWidgetItem* fileToVerify = ui->listWidgetFilesToVerify->item(i);
         const QString filePath = fileToVerify->text();
 
         QString cmd;
-        cmd.reserve(256);
+        cmd.reserve(512);
         cmd.append(cmdBase);
         cmd.append(QString("\"%1\"").arg(filePath));
+
+        STARTUPINFOW startupInfo;
+        memset(&startupInfo, 0x00, sizeof(startupInfo));
+        startupInfo.cb = sizeof(startupInfo);
+
+        PROCESS_INFORMATION processInformation;
+        memset(&processInformation, 0x00, sizeof(processInformation));
+
+        BOOL success = CreateProcessW(NULL, const_cast<wchar_t*>(cmd.toStdWString().c_str()), NULL, NULL, TRUE, NORMAL_PRIORITY_CLASS | CREATE_NO_WINDOW, NULL, NULL, &startupInfo, &processInformation);
+
+        DWORD error = 0;
+        if (success)
+        {
+            // Wait until process completes.
+            WaitForSingleObject(processInformation.hProcess, 1024 * 64);
+
+            // Check process exit code.
+            GetExitCodeProcess(processInformation.hProcess, &error);
+
+            // Avoid memory leak by closing process handle.
+            CloseHandle(processInformation.hProcess);
+
+            output.append(QString("✅  \"%1\" valid signature! \n").arg(filePath));
+
+            ui->textEditFilesVerificationOutput->setText(output);
+            repaint();
+        }
+        else
+        {
+            ++failures;
+            error = GetLastError();
+
+            output.append(QString("❌  \"%1\" - Error %2 \n").arg(filePath, error));
+
+            ui->textEditFilesVerificationOutput->setText(output);
+            repaint();
+        }
     }
 
-    // TODO: verify list of files here
+    output.append(QString("-------------------------------------------------------------------------\n %1 / %2 files verified successfully! \n\n").arg(ui->listWidgetFilesToVerify->count() - failures).arg(ui->listWidgetFilesToVerify->count()));
+
+    ui->textEditFilesVerificationOutput->setText(output);
+    repaint();
 
     busy = false;
 }

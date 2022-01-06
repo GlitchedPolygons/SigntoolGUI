@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
     QApplication::setOrganizationDomain(Constants::orgDomain);
 
     QApplication application(argc, argv);
+    application.setWindowIcon(QIcon(":/img/icon.png"));
 
     MainWindow window;
     window.show();

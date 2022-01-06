@@ -15,6 +15,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
+        ${CMAKE_CURRENT_LIST_DIR}/res/icons.qrc
         ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
         ${CMAKE_CURRENT_LIST_DIR}/src/qfileslistdraganddrop.cpp
         ${CMAKE_CURRENT_LIST_DIR}/src/qfileslistdraganddrop.h
@@ -23,10 +24,14 @@ set(PROJECT_SOURCES
         ${CMAKE_CURRENT_LIST_DIR}/src/mainwindow.ui
 )
 
+# Windows Icon
+set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_LIST_DIR}/img/winico.rc")
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(signtoolgui
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${APP_ICON_RESOURCE_WINDOWS}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET signtoolgui APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -42,6 +47,7 @@ else()
     else()
         add_executable(signtoolgui
             ${PROJECT_SOURCES}
+            ${APP_ICON_RESOURCE_WINDOWS}
         )
     endif()
 endif()
