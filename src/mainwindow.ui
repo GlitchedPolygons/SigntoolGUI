@@ -234,6 +234,12 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayoutFilesToVerifyListButtons">
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
           <item>
            <widget class="QPushButton" name="pushButtonVerifyFiles">
             <property name="text">
