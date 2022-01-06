@@ -290,7 +290,7 @@ void MainWindow::on_pushButtonSign_clicked()
             ++failures;
             error = GetLastError();
 
-            output.append(QString("❌  Failed to sign \"%1\" - Error %2 \n").arg(filePath, error));
+            output.append(QString("❌  Failed to sign \"%1\" - Error %2\nPlease make sure that you have signtool.exe installed and available in your $PATH").arg(filePath, error));
 
             ui->textEditSignOutput->setText(output);
             repaint();
@@ -355,13 +355,8 @@ void MainWindow::on_pushButtonVerifyFiles_clicked()
         DWORD error = 0;
         if (success)
         {
-            // Wait until process completes.
             WaitForSingleObject(processInformation.hProcess, 1024 * 64);
-
-            // Check process exit code.
             GetExitCodeProcess(processInformation.hProcess, &error);
-
-            // Avoid memory leak by closing process handle.
             CloseHandle(processInformation.hProcess);
 
             if (error == 0)
@@ -382,7 +377,7 @@ void MainWindow::on_pushButtonVerifyFiles_clicked()
             ++failures;
             error = GetLastError();
 
-            output.append(QString("❌  \"%1\" - Error %2 \n").arg(filePath, error));
+            output.append(QString("❌  \"%1\" - Error %2\nPlease make sure that you have signtool.exe installed and available in your $PATH").arg(filePath, error));
 
             ui->textEditFilesVerificationOutput->setText(output);
             repaint();
