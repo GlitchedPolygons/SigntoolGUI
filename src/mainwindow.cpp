@@ -290,7 +290,7 @@ void MainWindow::on_pushButtonSign_clicked()
             ++failures;
             error = GetLastError();
 
-            output.append(QString("❌  Failed to sign \"%1\" - Error %2\nPlease make sure that you have signtool.exe installed and available in your $PATH").arg(filePath, error));
+            output.append(QString("❌  Failed to sign \"%1\" - Error %2\nPlease make sure that you have signtool.exe installed and available in your $PATH\n").arg(filePath).arg(error));
 
             ui->textEditSignOutput->setText(output);
             repaint();
@@ -377,7 +377,7 @@ void MainWindow::on_pushButtonVerifyFiles_clicked()
             ++failures;
             error = GetLastError();
 
-            output.append(QString("❌  \"%1\" - Error %2\nPlease make sure that you have signtool.exe installed and available in your $PATH").arg(filePath, error));
+            output.append(QString("❌  \"%1\" - Error %2\nPlease make sure that you have signtool.exe installed and available in your $PATH\n").arg(filePath).arg(error));
 
             ui->textEditFilesVerificationOutput->setText(output);
             repaint();
