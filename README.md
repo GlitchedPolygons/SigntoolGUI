@@ -6,6 +6,8 @@ Manually signing your binaries on Windows (automating it is even better tho) was
 
 **Before using this, make sure to have [signtool.exe](https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) installed on your system and available in your `$PATH`**
 
+There is also a "verify" tab: in there you can drag &amp; drop binaries into the list field and verify their signatures (instead of using `signtool.exe verify /pa {FILE_PATH}` or, even worse, executing them and checking if the Windows SmartScreen goes brr...).
+
 ---
 
 ![Signtool GUI Screenshots](https://files.glitchedpolygons.com/api/v1/files/2porakb5izmfdtx3)
