@@ -2,7 +2,7 @@
 
 This is a [Qt](https://www.qt.io) GUI that wraps [signtool.exe](https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) with an easy drag &amp; drop approach.
 
-Manually signing your binaries on Windows (automating it is even better tho) was never as pleasant as dragging and dropping them into a visual user interface and selecting the code signing certificate + password and hit a button. Isn't that smooth af?
+Manually signing your binaries on Windows (automating it would be even better tho) was never as pleasant as dragging and dropping them into a visual user interface and selecting the code signing certificate + password and hit a button. Isn't that smooth af?
 
 **Before using this, make sure to have [signtool.exe](https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) installed on your system and available in your `$PATH`**
 
