@@ -52,6 +52,8 @@ IndentWidth: 4
 
 Cpp11BracedListStyle: false
 
+SpaceBeforeCpp11BracedList: true
+
 # http://www.stroustrup.com/bs_faq2.html#whitespace
 PointerAlignment: Left
 PointerBindsToType: true
