@@ -10,7 +10,7 @@ There is also a "verify" tab: in there you can drag &amp; drop binaries into the
 
 ---
 
-![Signtool GUI Screenshots](https://files.glitchedpolygons.com/api/v1/files/2porakb5izmfdtx3)
+![Signtool GUI Screenshots](https://api.files.glitchedpolygons.com/api/v1/files/2porakb5izmfdtx3)
 
 ---
 
