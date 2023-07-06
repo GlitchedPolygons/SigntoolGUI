@@ -35,7 +35,7 @@ struct Constants
     };
 
     static inline const char* appName = "SigntoolGUI";
-    static inline const char* appVersion = "1.0.0";
+    static inline const char* appVersion = "1.1.0";
     static inline const char* orgName = "Glitched Polygons";
     static inline const char* orgDomain = "glitchedpolygons.com";
 

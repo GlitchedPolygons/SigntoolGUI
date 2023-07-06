@@ -27,6 +27,9 @@ static const inline bool isValidFileExtension(const QUrl& url)
      || url.toLocalFile().endsWith(".dll", Qt::CaseInsensitive)
      || url.toLocalFile().endsWith(".cab", Qt::CaseInsensitive)
      || url.toLocalFile().endsWith(".cat", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".vbs", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".ps1", Qt::CaseInsensitive)
+     || url.toLocalFile().endsWith(".msix", Qt::CaseInsensitive)
      || url.toLocalFile().endsWith(".appx", Qt::CaseInsensitive))
     {
         return true;
