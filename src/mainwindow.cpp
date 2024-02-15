@@ -209,7 +209,9 @@ void MainWindow::on_pushButtonSign_clicked()
         return;
     }
 
-    if (!QFile::exists(pfxFilePath)) [[unlikely]]
+    const bool useSHA1 = !QFile::exists(pfxFilePath) && pfxFilePath.length() == 40;
+
+    if (!QFile::exists(pfxFilePath) && !useSHA1) [[unlikely]]
     {
         ui->textEditSignOutput->setText("The specified .pfx/.p12 file does not exist or access to it failed.");
         busy = false;
@@ -226,15 +228,28 @@ void MainWindow::on_pushButtonSign_clicked()
     ui->textEditSignOutput->setText("Signing above specified files...");
     repaint();
 
-    QString cmdBase = QString("signtool.exe sign /fd \"%1\" /td \"%2\" /tr \"%3\" /f \"%4\" /p \"%5\" ")
-    .arg
-    (
-        hashAlgoStringFromId(ui->buttonGroupHashAlgo->checkedId()),
-        hashAlgoStringFromId(ui->buttonGroupTimestampHashAlgo->checkedId()),
-        timestampServer,
-        pfxFilePath,
-        ui->lineEditPfxFilePassword->text()
-    );
+    QString cmdBase =
+
+    useSHA1
+        ?
+            QString("signtool.exe sign /sha1 \"%1\" /tr \"%2\" /td \"%3\" /fd \"%4\" ")
+                .arg
+            (
+                pfxFilePath,
+                timestampServer,
+                hashAlgoStringFromId(ui->buttonGroupTimestampHashAlgo->checkedId()),
+                hashAlgoStringFromId(ui->buttonGroupHashAlgo->checkedId())
+            )
+        :
+            QString("signtool.exe sign /fd \"%1\" /td \"%2\" /tr \"%3\" /f \"%4\" /p \"%5\" ")
+            .arg
+            (
+                hashAlgoStringFromId(ui->buttonGroupHashAlgo->checkedId()),
+                hashAlgoStringFromId(ui->buttonGroupTimestampHashAlgo->checkedId()),
+                timestampServer,
+                pfxFilePath,
+                ui->lineEditPfxFilePassword->text()
+            );
 
     QString output;
     output.reserve(1024);
