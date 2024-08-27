@@ -424,7 +424,7 @@ void MainWindow::on_pushButtonPasteSectigoTimestampServer_clicked()
 
 void MainWindow::on_pushButtonPasteGlobalSignTimestampServer_clicked()
 {
-    ui->lineEditTimestampServer->setText("http://timestamp.globalsign.com/scripts/timstamp.dll");
+    ui->lineEditTimestampServer->setText("http://timestamp.globalsign.com/tsa/r6advanced1");
 }
 
 void MainWindow::on_pushButtonPasteCertumTimestampServer_clicked()
