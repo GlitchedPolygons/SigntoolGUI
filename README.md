@@ -1,3 +1,11 @@
+> [!IMPORTANT]
+>
+> # **NOTICE:**
+>
+> ## Development of this project has been migrated to: https://codeberg.org/GlitchedPolygons/SigntoolGUI
+>
+> ## All pull requests and issues on GitHub will be ignored from the 16th of August, 2025 onwards.
+
 # Signtool GUI
 
 This is a [Qt](https://www.qt.io) GUI that wraps [signtool.exe](https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) with an easy drag &amp; drop approach.
@@ -14,7 +22,7 @@ There is also a "verify" tab: in there you can drag &amp; drop binaries into the
 
 ---
 
-This GUI's source code is [GPL-3.0 licensed](https://github.com/GlitchedPolygons/SigntoolGUI/blob/main/LICENSE) and available on [github.com/GlitchedPolygons/SigntoolGUI](https://github.com/GlitchedPolygons/SigntoolGUI) - but also available for purchase on [glitchedpolygons.com](https://glitchedpolygons.com) (ships with some cool, additional stuff, PDF files/manual, etc...). 
+This GUI's source code is [GPL-3.0 licensed](https://codeberg.org/GlitchedPolygons/SigntoolGUI/src/branch/main/LICENSE) and available on [github.com/GlitchedPolygons/SigntoolGUI](https://codeberg.org/GlitchedPolygons/SigntoolGUI) - but also available for purchase on [glitchedpolygons.com](https://glitchedpolygons.com) (ships with some cool, additional stuff, PDF files/manual, etc...). 
 
 Please consider buying it from there to support the development of nifty tools like this :)
 
